@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
     private UserRepo userrepo;
 
+    @Autowired
     public UserService(UserRepo userrepo) {
         this.userrepo = userrepo;
     }
@@ -29,7 +29,7 @@ public class UserService {
         return userrepo.findById(id).orElse(null);
     }
 
-    public void deleteUser(int user_id) {
-        userrepo.deleteById(user_id); //it wont throw any exception
+    public void deleteUser(int id) {
+        userrepo.deleteById(id); //it wont throw any exception
     }
 }

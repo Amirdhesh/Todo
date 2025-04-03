@@ -1,5 +1,6 @@
 package com.amirdhesh.todo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,14 +13,22 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Task {
+
+    public enum TaskStatus {
+        todo,
+        in_Progress,
+        done
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
     private String title;
-    private String Status;
+    private TaskStatus status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private List<User> user;
+    @JsonBackReference
+    private User user;
 
 }

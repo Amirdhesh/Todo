@@ -26,11 +26,10 @@ public class TaskService {
         return taskrepo.save(task);
     }
 
-    public String updateStatus(int task_id, String status) {
-        Task task = taskrepo.findById(task_id).orElseThrow(() -> new NotFound("Task not Found"));
+    public Task updateStatus(int taskId, Task.TaskStatus status) {
+        Task task = taskrepo.findById(taskId).orElseThrow(() -> new NotFound("Task not Found"));
         task.setStatus(status);
-        taskrepo.save(task);
-        return "Status Updated";
+        return taskrepo.save(task);
     }
 
     public void deleteTask(int task_id) {

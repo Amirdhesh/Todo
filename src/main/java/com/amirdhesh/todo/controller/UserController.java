@@ -11,15 +11,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api")
 public class UserController {
 
-    @Autowired
     private UserService userservice;
+
+    @Autowired
+    public UserController(UserService userservice) {
+        this.userservice = userservice;
+    }
+
+    @GetMapping("/check")
+    public String Check() {
+        return "All Ok.";
+    }
 
     @PostMapping("/user")
     public ResponseEntity<User> addUser(@RequestBody User user) {
-        return new ResponseEntity<>(userservice.addUser(user), HttpStatus.OK);
+        return new ResponseEntity<>(userservice.addUser(user), HttpStatus.CREATED);
     }
 
     @GetMapping("/user/{id}")
@@ -34,7 +43,7 @@ public class UserController {
         return new ResponseEntity<>(userservice.listUsers(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/User/{id}")
+    @DeleteMapping("/user/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable int id) {
         userservice.deleteUser(id);
         return new ResponseEntity<>("Deleted.", HttpStatus.OK);

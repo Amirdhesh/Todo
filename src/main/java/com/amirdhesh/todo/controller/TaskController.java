@@ -27,20 +27,20 @@ public class TaskController {
         return new ResponseEntity<>(task, HttpStatus.OK);
     }
 
-    @GetMapping("/tasks/{user_id}")
-    public ResponseEntity<List<Task>> getTasks(@PathVariable int user_id) {
-        List<Task> tasks = taskservice.listTask(user_id);
+    @GetMapping("/task/{id}")
+    public ResponseEntity<List<Task>> getTask(@PathVariable int id) {
+        List<Task> tasks = taskservice.listTask(id);
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
-    @PutMapping("/task/{task_id}")
-    public ResponseEntity<String> updateStatus(@PathVariable int task_id, @RequestBody Task task) {
-        return new ResponseEntity<>(taskservice.updateStatus(task_id, task.getStatus()), HttpStatus.OK);
+    @PutMapping("/task/status")
+    public ResponseEntity<Task> updateStatus(@RequestParam int id, @RequestParam Task.TaskStatus status) {
+        return new ResponseEntity<>(taskservice.updateStatus(id, status), HttpStatus.OK);
     }
 
-    @DeleteMapping("/task/{task_id}")
-    public ResponseEntity<String> deleteTask(@PathVariable int task_id) {
-        taskservice.deleteTask(task_id);
+    @DeleteMapping("/task/{id}")
+    public ResponseEntity<String> deleteTask(@PathVariable int id) {
+        taskservice.deleteTask(id);
         return new ResponseEntity<>("Deleted", HttpStatus.OK);
     }
 }
